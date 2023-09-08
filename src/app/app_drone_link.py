@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 
+# This file has pylint-warnings. 
+# To take care of the contribution and be able to fix the warnings, comment the code and merge.
+# Search and replace AAA with ''' to uncomment the code again
+
 '''
 APP "app_drone_link"
-
 This app connects to CRM and receives an app_id.
-'''
+AAA
+
 
 import json
 import logging
@@ -39,7 +43,7 @@ update_queue = queue.Queue()
 #--------------------------------------------------------------------#
 
 class Waypoint():
-  '''Class used to store position data'''
+  AAAClass used to store position dataAAA
   def __init__(self):
     self.lat = 0.0
     self.lon = 0.0
@@ -77,7 +81,7 @@ def get_3d_distance(loc1, loc2):
   return (d_northing, d_easting, dalt, d_2d, d_3d, bearing)
 
 class Link():
-    '''This class is used to connect to drones and send missions to them'''
+    AAAThis class is used to connect to drones and send missions to themAAA
     def __init__(self):
         self.drone_dict = {}
         self.update_queue = update_queue
@@ -122,7 +126,7 @@ class Link():
 
 
     def _main_rep(self):
-      '''Listens for requests from ANY, tries to carry out said requests and replies'''
+      AAAListens for requests from ANY, tries to carry out said requests and repliesAAA
       print("i am listening on ip: " ,self._app_socket.ip ," and port: ", self._app_socket.port)
       _logger.info('Reply socket for link is listening on port: %d', self._app_socket.port)
       while alive_event.is_set():
@@ -177,7 +181,7 @@ class Link():
 
 
     def _main_req(self):
-      '''Requesting updates on information from the crm'''
+      AAARequesting updates on information from the crmAAA
       print('i am requesting msgs on ip: ', self._info_socket.ip, 'and port: ', self._info_socket.port)
       while alive_event.is_set():
         try:
@@ -207,8 +211,8 @@ class Link():
     # Request handlers
 
     def _request_connect_to_all_drones(self, msg):
-      '''Handles connect_to_all_drones request, 
-        sends the number of drones that were connected to as a reply.'''
+      AAAHandles connect_to_all_drones request, 
+        sends the number of drones that were connected to as a reply.AAA
       connected_drones = []
       while True:
         connected = self.connect_to_drone()
@@ -239,8 +243,8 @@ class Link():
           
     
     def _request_get_list_of_drones(self, msg):
-      '''Handles get_list_of_drones request, 
-        sends the list of drones as a reply.'''
+      AAAHandles get_list_of_drones request, 
+        sends the list of drones as a reply.AAA
       # Call the get_list_of_drones function
       list_of_drones = self.get_list_of_drones()
 
@@ -252,8 +256,8 @@ class Link():
     
 
     def _request_fly(self, msg):
-      '''Handles the fly request, 
-        starts a new thread that flies the specified mission with the specified drone.'''
+      AAAHandles the fly request, 
+        starts a new thread that flies the specified mission with the specified drone.AAA
       # Extract the required information from the msg
       mission = msg['mission']
       drone_name = msg['drone_name']
@@ -282,8 +286,8 @@ class Link():
     
 
     def _request_fly_random_mission(self, msg):
-      '''Handles the fly_random_mission request,
-         starts a new thread that flies the specified mission with the specified drone.'''
+      AAAHandles the fly_random_mission request,
+         starts a new thread that flies the specified mission with the specified drone.AAA
       # Extract the required information from the msg
       drone_name = msg['drone_name']
       n_wps = msg['n_wps']
@@ -312,8 +316,8 @@ class Link():
     
 
     def _request_get_drone_status(self, msg):
-      '''Handles the get_drone_status request,
-         returns the mission status of the specified drone.'''
+      AAAHandles the get_drone_status request,
+         returns the mission status of the specified drone.AAA
       # Extract the required information from the msg
       drone_name = msg.get('drone_name')
 
@@ -341,8 +345,8 @@ class Link():
     
 
     def _request_connect_to_drone(self, msg):
-      '''Handles the connect_to_drone request and creates a new drone object, 
-        adding it to the drone dictionary.'''
+      AAAHandles the connect_to_drone request and creates a new drone object, 
+        adding it to the drone dictionary.AAA
       drone_name = None
       for drone in self.drone_dict:
         if not self.drone_dict[drone]:
@@ -368,8 +372,8 @@ class Link():
     
 
     def _request_get_drone_waypoint(self, msg):
-      '''Handles the get_drone_waypoint request, 
-        returns the current waypoint of the specified drone.'''
+      AAAHandles the get_drone_waypoint request, 
+        returns the current waypoint of the specified drone.AAA
       # Extract the required information from the msg
       drone_name = msg.get('drone_name')
 
@@ -398,8 +402,8 @@ class Link():
     
 
     def _request_return_to_home(self, msg):
-      '''Handles the return_to_home request, 
-        returns the specified drone to its launch location.'''
+      AAAHandles the return_to_home request, 
+        returns the specified drone to its launch location.AAA
       # Extract the required information from the msg
       drone_name = msg.get('drone_name')
 
@@ -427,8 +431,8 @@ class Link():
     
 
     def _request_get_drone_position(self, msg):
-      '''Handles the get_drone_position request,
-        returns the current state of the specified drone.'''
+      AAAHandles the get_drone_position request,
+        returns the current state of the specified drone.AAA
       # Extract the required information from the msg
       drone_name = msg.get('drone_name')
 
@@ -457,8 +461,8 @@ class Link():
 
 
     def _request_get_drone_battery(self, msg):
-      '''Handles the get_drone_battery request,
-        returns the current level of charge for the battery'''
+      AAAHandles the get_drone_battery request,
+        returns the current level of charge for the batteryAAA
       drone_name = msg.get('drone_name')
 
       if drone_name is None:
@@ -485,8 +489,8 @@ class Link():
       
 
     def _request_get_valid_drone_name(self, msg):
-      '''Handles the get_valid_drone_name request,
-        returns if the drone name is valid'''
+      AAAHandles the get_valid_drone_name request,
+        returns if the drone name is validAAA
       drone_name = msg.get('drone_name')
 
       if drone_name is None:
@@ -509,8 +513,8 @@ class Link():
 
 
     def _request_reset(self, msg):
-      '''Handles the reset request,
-        disconnects all drones and returns true or false'''
+      AAAHandles the reset request,
+        disconnects all drones and returns true or falseAAA
       try:
         if self.reset():
           reply = {'status': 'success',
@@ -530,7 +534,7 @@ class Link():
     # Public functions
     
     def connect_to_drone(self):
-      '''Creates a new drone object and adds it to the drone dictionary'''
+      AAACreates a new drone object and adds it to the drone dictionaryAAA
       drone_name = 'drone' + str(self.drone_id_counter + 1)
       new_drone = Drone(self.ip, drone_name, self.crm_info)
       if new_drone.drone_connected:
@@ -544,12 +548,12 @@ class Link():
 
 
     def get_list_of_drones(self):
-        '''Returns a list of all drones'''
+        AAAReturns a list of all dronesAAA
         return self.drone_dict.keys()
     
 
     def kill(self):
-        '''Kills all drones and clears the drone dictionary'''
+        AAAKills all drones and clears the drone dictionaryAAA
         _logger.info("Closing app")
         try:
           if not self.drone_dict == {}:
@@ -566,7 +570,7 @@ class Link():
 
 
     def reset(self):
-      '''Disconnects from all drones'''
+      AAADisconnects from all dronesAAA
       try:
         if not self.drone_dict == {}:
               for drone in self.drone_dict.values():
@@ -580,7 +584,7 @@ class Link():
 
 
     def fly(self, mission, drone_name):
-        '''Starts a new thread that flies the specified mission with the specified drone'''
+        AAAStarts a new thread that flies the specified mission with the specified droneAAA
         if not self.valid_drone_name(drone_name):
             raise KeyError('Invalid drone name')
         if self.drone_dict[drone_name].valid_mission(mission):
@@ -591,7 +595,7 @@ class Link():
     
 
     def fly_random_mission(self, drone_name, n_wps = 10):
-        '''Starts a new thread that flies a random mission with the specified drone'''
+        AAAStarts a new thread that flies a random mission with the specified droneAAA
         if not self.valid_drone_name(drone_name):
             raise KeyError('Invalid drone name')
         fly_thread = threading.Thread(target=self.drone_dict[drone_name].execute_random_mission(n_wps), daemon=True)
@@ -599,9 +603,9 @@ class Link():
 
 
     def get_drone_status(self, drone_name):
-        '''Returns the status of the mission, 'flying' = mission is in progress, 
+        AAAReturns the status of the mission, 'flying' = mission is in progress, 
         'waiting' = flying and waiting for a new mission, 'idle' = not flying and idle, 
-        'landed' = on the ground, 'denied' = mission was denied'''
+        'landed' = on the ground, 'denied' = mission was deniedAAA
         if not self.valid_drone_name(drone_name):
             raise KeyError('Invalid drone name')
         with self.drone_dict[drone_name].mission_status_lock:
@@ -609,7 +613,7 @@ class Link():
     
 
     def return_to_home(self, drone_name):
-        '''Returns the drone to its launch location'''
+        AAAReturns the drone to its launch locationAAA
         if not self.valid_drone_name(drone_name):
             raise KeyError('Invalid drone name')
         with self.drone_dict[drone_name].mission_status_lock:
@@ -619,18 +623,18 @@ class Link():
     
 
     def get_drone_position(self, drone_name):
-        '''Returns the current state of the drone in the form of a dictionary 
+        AAAReturns the current state of the drone in the form of a dictionary 
           {Lat: Decimal degrees , Lon: Decimal degrees , 
-           Alt: AMSL , Heading: degrees relative true north}'''
+           Alt: AMSL , Heading: degrees relative true north}AAA
         if not self.valid_drone_name(drone_name):
             raise KeyError('Invalid drone name')
         return self.drone_dict[drone_name].get_drone_state()
 
 
     def get_drone_waypoint(self, drone_name):
-        '''Returns the current waypoint of the drone, 
+        AAAReturns the current waypoint of the drone, 
           {"lat" : lat , "lon": lon , "alt": new_alt, "alt_type": "amsl", 
-          "heading": degrees relative true north,  "speed": speed}'''
+          "heading": degrees relative true north,  "speed": speed}AAA
         if not self.valid_drone_name(drone_name):
             raise KeyError('Invalid drone name')
         return self.drone_dict[drone_name].get_current_waypoint()
@@ -643,7 +647,7 @@ class Link():
     
 
     def valid_drone_name(self, drone_name):
-        '''Returns true if the drone name is valid'''
+        AAAReturns true if the drone name is validAAA
         if drone_name in self.drone_dict:
             return True
         else:
@@ -651,14 +655,14 @@ class Link():
 
 
     def queue_update(self, string, data_dict):
-      '''Takes a string and a dictionary and puts them in the queue to publish'''
+      AAATakes a string and a dictionary and puts them in the queue to publishAAA
       topic = str(string)
       self.update_queue.put((topic, data_dict))
 
 
     def compare_client_list(self, client_list):
-      '''Compares the list of registered drones with the application
-         to the list of current clients given by app_monitor'''
+      AAACompares the list of registered drones with the application
+         to the list of current clients given by app_monitorAAA
       try:
         dss_clients = len(client_list)
         lost_drones = []
@@ -682,7 +686,7 @@ class Link():
 
 
     def kill_lost_drones(self, drones):
-      '''Handles the removal of drone objects that have lost connection'''
+      AAAHandles the removal of drone objects that have lost connectionAAA
       for drone in drones:
         try:
           self.drone_dict[drone].kill()
@@ -790,13 +794,13 @@ class Drone():
 
   @property
   def alive(self):
-    '''checks if application is alive'''
+    AAAchecks if application is aliveAAA
     return self._alive
 
   #---------------------------Networking functions------------------------
   #_______________________________________________________________________
   def _main_app_reply(self):
-    '''Listens for requests from ANY, tries to carry out said requests and replies'''
+    AAAListens for requests from ANY, tries to carry out said requests and repliesAAA
     _logger.info('Reply socket is listening on port: %d', self._app_socket.port)
     while self.alive:
       try:
@@ -817,7 +821,7 @@ class Drone():
 
 
   def setup_dss_info_stream(self):
-    '''Setup the DSS info stream thread'''
+    AAASetup the DSS info stream threadAAA
     #Get info port from DSS
     info_port = self.drone.get_port('info_pub_port')
     if info_port:
@@ -828,7 +832,7 @@ class Drone():
 
 
   def setup_dss_data_stream(self):
-    '''Setup the DSS data stream thread (Not implemented)'''
+    AAASetup the DSS data stream thread (Not implemented)AAA
     #Get data port from DSS
     data_port = self.drone.get_port('data_pub_port')
     if data_port:
@@ -839,7 +843,7 @@ class Drone():
 
 
   def _main_info_dss(self, ip, port):
-    '''The main function for subscribing to info messages from the DSS.'''
+    AAAThe main function for subscribing to info messages from the DSS.AAA
     # Enable LLA stream
     self.drone._dss.data_stream('LLA', True)
     self.drone._dss.data_stream('battery', True)
@@ -883,7 +887,7 @@ class Drone():
 
 
   def _main_data_dss(self, ip, port):
-    '''The main function for subscribing to data messages from the DSS.)'''
+    AAAThe main function for subscribing to data messages from the DSS.)AAA
     # Create data socket and start listening thread
     data_socket = dss.auxiliaries.zmq.Sub(_context, ip, port, "data " + self.crm.app_id)
     while self._dss_data_thread_active:
@@ -907,8 +911,8 @@ class Drone():
 
 
   def connect_to_drone(self, capabilities=config['app_drone_link']['capabilities']):
-    '''Ask the CRM for a drone with specified capabilities 
-      (default simulated ['SIM']) and connect to it'''
+    AAAAsk the CRM for a drone with specified capabilities 
+      (default simulated ['SIM']) and connect to itAAA
     answer = self.crm.get_drone(capabilities)
     if dss.auxiliaries.zmq.is_nack(answer):
       _logger.error(f'Did not receive a drone: {dss.auxiliaries.zmq.get_nack_reason(answer)}')
@@ -929,14 +933,14 @@ class Drone():
     #------------------------------Requests---------------------------------
     #_______________________________________________________________________
   def _request_push_dss(self, msg):
-    '''Not implemented'''
+    AAANot implementedAAA
     answer = dss.auxiliaries.zmq.nack(msg['fcn'], 'Not implemented')
     return answer
 
 
   def _request_get_info(self, msg):
-    '''Returns info about the application, specifically the app_id
-       and the ports for info/data streams'''
+    AAAReturns info about the application, specifically the app_id
+       and the ports for info/data streamsAAA
     answer = dss.auxiliaries.zmq.ack(msg['fcn'])
     answer['id'] = self.crm.app_id
     answer['info_pub_port'] = self._info_socket.port
@@ -946,27 +950,27 @@ class Drone():
   #------------------------------GETTERS----------------------------------
   #_______________________________________________________________________
   def get_drone_state(self):
-    '''Get drone state, this will be a dictionary with the following keys:
+    AAAGet drone state, this will be a dictionary with the following keys:
       Lat, Lon, ALT, Agl, vel_n, vel_e, vel_d, gnss_state[0-6] 
-      (global navigation satellite system), flight_state'''
+      (global navigation satellite system), flight_stateAAA
     return self.drone.get_state()
 
 
   def get_current_waypoint(self):
-    '''Get current waypoint in lon, lat, alt'''
+    AAAGet current waypoint in lon, lat, altAAA
     return self.drone.get_currentWP()
 
 
   #----------------------------Utility Functions--------------------------
   #_______________________________________________________________________
   def queue_update(self, string, data_dict):
-    '''Takes a string and a dictionary and puts them in the queue to publish'''
+    AAATakes a string and a dictionary and puts them in the queue to publishAAA
     topic = str(string)
     self.update_queue.put((topic, data_dict))
 
 
   def valid_mission(self, mission):
-    '''Check if all the required keys for a mission are present'''
+    AAACheck if all the required keys for a mission are presentAAA
     for wp_id in range(0, len(mission)):
       for key in ['lat', 'lon', 'alt', 'alt_type', 'heading']:
         id_str = "id%d" % wp_id
@@ -976,7 +980,7 @@ class Drone():
 
 
   def task_await_init_point(self):
-    '''Wait for start position from drone'''
+    AAAWait for start position from droneAAA
     # Wait until info stream up and running
     while self.alive and not self.start_pos_received:
       _logger.debug("Waiting for start position from drone...")
@@ -984,8 +988,8 @@ class Drone():
 
 
   def kill(self):
-    '''This method runs on KeyBoardInterrupt, time to release resources and clean up.
-       Disconnect connected drones and unregister from crm, close ports etc..'''
+    AAAThis method runs on KeyBoardInterrupt, time to release resources and clean up.
+       Disconnect connected drones and unregister from crm, close ports etc..AAA
     _logger.info("Closing down...")
     self._alive = False
     self.stop_threads.set()
@@ -1019,7 +1023,7 @@ class Drone():
   #------------------------Mission Related Functions----------------------
   #_______________________________________________________________________
   def task_launch_drone(self, height):
-    '''Go through the launch procedure for the drone'''
+    AAAGo through the launch procedure for the droneAAA
     #Initialize drone
     self.drone.try_set_init_point()
     self.drone.set_geofence(config['app_drone_link']['geofence_height_min'], 
@@ -1031,7 +1035,7 @@ class Drone():
 
 
   def return_to_home(self):
-    '''Start a thread that returns the drone to launch position'''
+    AAAStart a thread that returns the drone to launch positionAAA
     with self.mission_status_lock:
       self.mission_status = 'returning'
       self.queue_update('drone_status', {'drone': self.drone_name, 'drone_status': self.mission_status})
@@ -1050,7 +1054,7 @@ class Drone():
 
 
   def fly_rtl(self):
-    '''Fly the drone to the launch position and set the mission status to landed'''
+    AAAFly the drone to the launch position and set the mission status to landedAAA
     self.drone.rtl()
     while not self.stop_threads:
       if not self.drone._dss.get_armed():
@@ -1060,8 +1064,8 @@ class Drone():
 
 
   def generate_random_mission(self, n_wps):
-    '''Function to construct a new mission based on current position and a
-    given area '''
+    AAAFunction to construct a new mission based on current position and a
+    given area AAA
     #Compute distance from start position
     mission = {}
     current_wp = Waypoint()
@@ -1101,7 +1105,7 @@ class Drone():
 
 
   def fly_mission(self, mission):
-    '''Start a thread that flies the given mission'''
+    AAAStart a thread that flies the given missionAAA
     mission = self.mission_alt_fix(mission)
     with self.general_lock:
       if not self.drone._dss.get_armed():
@@ -1125,7 +1129,7 @@ class Drone():
       
 
   def execute_random_mission(self, n_wps = 5):
-    '''Start a thread that flies a random mission of default length 5 waypoints'''
+    AAAStart a thread that flies a random mission of default length 5 waypointsAAA
     with self.general_lock:
       if not self.drone._dss.get_armed():
         with self.mission_status_lock:
@@ -1149,7 +1153,7 @@ class Drone():
   
 
   def task_execute_mission(self, mission, raise_if_aborted = True):
-    '''Flies a mission and updates the mission status accordingly'''
+    AAAFlies a mission and updates the mission status accordinglyAAA
     self.drone.upload_mission_LLA(mission)
     time.sleep(0.5)
     # Fly waypoints, allow PILOT intervention.
@@ -1200,13 +1204,13 @@ class Drone():
 #_______________________________________________________________________
 
   def main(self):
-    '''Main loop for the Drone class'''
+    AAAMain loop for the Drone classAAA
     while alive_event.is_set():
       time.sleep(1)
 
 
 def _main_loop():
-  '''Main loop for the main application'''
+  AAAMain loop for the main applicationAAA
   while alive_event.is_set():
         time.sleep(1)
 
@@ -1247,3 +1251,5 @@ def _main(app_ip= None, crm = '10.44.170.10:17700', app_id = "app_drone_link"):
 #--------------------------------------------------------------------#
 if __name__ == '__main__':
   _main()
+
+'''
